@@ -1,0 +1,15 @@
+# Local Python environment and generated files
+Backend/.venv/
+Backend/.pytest_cache/
+Backend/__pycache__/
+**/__pycache__/
+**/*.pyc
+Backend/.env
+
+# Local media and runtime artifacts
+Backend/parking.mp4
+Backend/test.jpg
+
+# Preserved nested repository metadata
+**/.git-preserved/
+**/.DS_Store
