@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 export default function LivePage() {
-  const wsUrl = "ws://127.0.0.1:8002/ws";
+  const wsUrl = process.env.NEXT_PUBLIC_WS_URL || "ws://127.0.0.1:8002/ws";
   const [showInfo, setShowInfo] = useState(false);
 
   type Slot = {

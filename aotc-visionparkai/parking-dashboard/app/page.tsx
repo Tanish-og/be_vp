@@ -75,11 +75,12 @@ function SystemRow({ label, value, status }: { label: string; value: string; sta
 }
 
 export default function OverviewPage() {
-  const wsUrl = "ws://127.0.0.1:8002/ws";
-  const mongoHealthUrl = "http://127.0.0.1:8002/health/mongo";
-  const modelHealthUrl = "http://127.0.0.1:8002/health/model";
-  const polygonHealthUrl = "http://127.0.0.1:8002/health/polygon";
-  const backendHealthUrl = "http://127.0.0.1:8002/health";
+  const wsUrl = process.env.NEXT_PUBLIC_WS_URL || "ws://127.0.0.1:8002/ws";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8002";
+  const mongoHealthUrl = `${apiUrl}/health/mongo`;
+  const modelHealthUrl = `${apiUrl}/health/model`;
+  const polygonHealthUrl = `${apiUrl}/health/polygon`;
+  const backendHealthUrl = `${apiUrl}/health`;
 
   type Slot = {
     id: string;
