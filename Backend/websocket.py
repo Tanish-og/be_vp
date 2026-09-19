@@ -13,10 +13,20 @@ async def websocket_endpoint(websocket: WebSocket):
 
     try:
         while True:
+            try:
+                slots = build_live_slots()
+            except Exception as e:
+                print(f"[WebSocket] Error building slots: {e}")
+                slots = []
+
             await websocket.send_json({
                 "success": True,
-                "slots": build_live_slots(),
+                "slots": slots,
+                "detections": 0,
             })
             await asyncio.sleep(1)
     except WebSocketDisconnect:
+        return
+    except Exception as e:
+        print(f"[WebSocket] Connection error: {e}")
         return
