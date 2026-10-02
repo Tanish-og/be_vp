@@ -4,7 +4,7 @@
 
 VisionPark AI is a real-time, AI-powered smart parking management system that leverages YOLOv8 for vehicle detection and computer vision for dynamic slot occupancy monitoring. It comes with a modern React/Next.js dashboard and a FastAPI WebSocket backend.
 
-**Deployed Dashboard:** https://visionpark.vercel.app (Note: Due to hardware restrictions, the YOLO inference backend must run locally for full functionality. The deployed dashboard provides a preview of the frontend UI).
+**Deployed Dashboard:** https://vissionparkai.vercel.app/ (Note: Due to hardware restrictions, the YOLO inference backend must run locally for full functionality. The deployed dashboard provides a preview of the frontend UI).
 
 ## 🚀 Features
 
