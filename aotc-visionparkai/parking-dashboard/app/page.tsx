@@ -77,6 +77,7 @@ function SystemRow({ label, value, status }: { label: string; value: string; sta
 export default function OverviewPage() {
   const wsUrl = process.env.NEXT_PUBLIC_WS_URL || "ws://127.0.0.1:8002/ws";
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8002";
+  const cameraWsUrl = wsUrl.replace("/ws", "/ws/camera");
   const mongoHealthUrl = `${apiUrl}/health/mongo`;
   const modelHealthUrl = `${apiUrl}/health/model`;
   const polygonHealthUrl = `${apiUrl}/health/polygon`;
@@ -95,6 +96,7 @@ export default function OverviewPage() {
   const [modelLoaded, setModelLoaded] = useState<boolean | null>(null);
   const [polygonLoaded, setPolygonLoaded] = useState<boolean | null>(null);
   const [backendHealthy, setBackendHealthy] = useState<boolean | null>(null);
+  const [cameraWsReady, setCameraWsReady] = useState<boolean | null>(null);
 
   useEffect(() => {
     const ws = new WebSocket(wsUrl);
@@ -140,6 +142,15 @@ export default function OverviewPage() {
       mounted = false;
     };
   }, []);
+
+  // Quick-probe the camera WS endpoint
+  useEffect(() => {
+    const ws = new WebSocket(cameraWsUrl);
+    ws.onopen = () => { setCameraWsReady(true); ws.close(); };
+    ws.onerror = () => setCameraWsReady(false);
+    ws.onclose = (e) => { if (e.code !== 1000) setCameraWsReady(false); };
+    return () => ws.close();
+  }, [cameraWsUrl]);
 
   const totalSlots = slots.length;
   const occupied = slots.filter((s) => s.status === "Occupied").length;
@@ -215,6 +226,11 @@ export default function OverviewPage() {
               label="MongoDB"
               value={mongoConnected === null ? "Checking" : mongoConnected ? "Online" : "Offline"}
               status={mongoConnected === null ? "warn" : mongoConnected ? "ok" : "off"}
+            />
+            <SystemRow
+              label="Camera AI WS"
+              value={cameraWsReady === null ? "Checking" : cameraWsReady ? "Ready" : "Unavailable"}
+              status={cameraWsReady === null ? "warn" : cameraWsReady ? "ok" : "off"}
             />
           </div>
         </div>

@@ -12,12 +12,14 @@ import {
   Activity,
   ChevronLeft,
   ChevronRight as ChevronRightIcon,
+  Camera,
 } from "lucide-react";
 
 const NAV_ITEMS = [
   { href: "/", icon: LayoutDashboard, label: "Overview", desc: "System summary" },
   { href: "/admin", icon: Settings2, label: "Admin Setup", desc: "Polygon mapping" },
   { href: "/live", icon: Radio, label: "Live Map", desc: "Real-time slots" },
+  { href: "/camera", icon: Camera, label: "Camera Feed", desc: "Device camera AI" },
   { href: "/analytics", icon: BarChart3, label: "Analytics", desc: "Peak hours & trends" },
   { href: "/navigate", icon: Navigation2, label: "Navigate", desc: "A* wayfinding" },
 ];

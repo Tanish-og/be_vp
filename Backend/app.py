@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from api.routes import router
 from fastapi.middleware.cors import CORSMiddleware
 from websocket import router as websocket_router
+from camera_ws import router as camera_ws_router
 
 
 app = FastAPI(
@@ -12,7 +13,10 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -21,3 +25,4 @@ app.add_middleware(
 app.include_router(router)
 
 app.include_router(websocket_router)
+app.include_router(camera_ws_router)
